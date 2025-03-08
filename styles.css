@@ -19,6 +19,7 @@ body {
   font-family: "Inter", sans-serif;
   font-variation-settings: "wght" 400;
   background: linear-gradient(45deg, #1A1A2E 0%, #2A2A40 50%, #1A1A2E 100%);
+  background-size: 200% 200%;
   color: white;
   line-height: 1.6;
   font-size: calc(16px + 0.5vw);
@@ -54,9 +55,10 @@ header {
   background: linear-gradient(135deg, #00FFFF, #FF00FF);
   padding: 2rem 0;
   text-align: center;
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 10;
+  overflow: hidden;
   animation: neonGlow 3s ease-in-out infinite alternate;
 }
 
@@ -79,7 +81,7 @@ header h1 {
 }
 
 header h2 {
-  font-size: max(1.1rem, 2vw);
+  font-size: max(1.2rem, 3vw);
   color: #39FF14;
 }
 
@@ -96,8 +98,8 @@ header .link-github {
 }
 
 header .link-github svg {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   fill: #00FFFF;
   transition: transform 0.3s;
 }
@@ -253,8 +255,8 @@ aside .link-allstyles:hover {
 }
 
 .page-footer ul li svg {
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
   fill: #39FF14;
   transition: transform 0.3s;
 }
@@ -267,9 +269,11 @@ aside .link-allstyles:hover {
 @keyframes neonGlow {
   0% {
     box-shadow: 0 0 20px #00FFFF, 0 0 40px #FF00FF;
+    background: linear-gradient(135deg, #00FFFF, #FF00FF);
   }
   100% {
     box-shadow: 0 0 30px #FF00FF, 0 0 60px #00FFFF;
+    background: linear-gradient(135deg, #FF00FF, #00FFFF);
   }
 }
 
