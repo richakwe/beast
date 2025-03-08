@@ -1,0 +1,308 @@
+// Variables
+$neon-pink: #FF00FF;
+$neon-blue: #00FFFF;
+$neon-green: #39FF14;
+$dark-bg: #1A1A2E;
+$shadow: rgba(0, 0, 0, 0.5);
+$max-width: 1000px;
+
+// Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  background: linear-gradient(45deg, #0F0F1A 0%, #2A2A40 50%, #0F0F1A 100%); // Gradient instead of solid color
+  background-size: 200% 200%; // For animation potential (optional)
+  color: white;
+  line-height: 1.6;
+}
+
+// Skip Link
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 10px;
+  background: $neon-pink;
+  color: $dark-bg;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  z-index: 1000;
+  &:focus {
+    top: 10px;
+    box-shadow: 0 0 10px $neon-pink;
+  }
+}
+
+// Container
+.container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+// Header with Animation
+header {
+  background: linear-gradient(135deg, $neon-blue, $neon-pink);
+  padding: 2rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: neonGlow 3s ease-in-out infinite alternate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+    animation: pulse 4s infinite;
+  }
+
+  h1 {
+    font-size: 3rem;
+    text-shadow: 0 0 10px $neon-green;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: $neon-green;
+  }
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  .link-github {
+    color: $neon-blue;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1rem;
+
+    svg {
+      width: 16px; // Smaller size from previous update
+      height: 16px;
+      fill: $neon-blue;
+      margin-right: 0.5rem;
+      transition: transform 0.3s;
+    }
+
+    &:hover {
+      color: $neon-pink;
+      svg {
+        fill: $neon-pink;
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+// Navigation
+nav {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 2px solid $neon-blue;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+
+    li {
+      margin: 0.5rem 1rem;
+
+      a {
+        color: $neon-green;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0.5rem;
+        border: 2px solid transparent;
+        transition: all 0.3s;
+
+        &:hover, &:focus {
+          border-color: $neon-green;
+          box-shadow: 0 0 10px $neon-green;
+        }
+      }
+    }
+  }
+}
+
+// Main Content
+main {
+  padding: 2rem 0;
+
+  article {
+    margin-bottom: 2rem;
+
+    h2 {
+      color: $neon-pink;
+      font-size: 2rem;
+      text-shadow: 0 0 8px $neon-pink;
+      margin-bottom: 1rem;
+    }
+
+    p, blockquote, ul, ol {
+      margin-bottom: 1rem;
+    }
+
+    blockquote {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-left: 5px solid $neon-blue;
+      color: $neon-green;
+    }
+
+    a {
+      color: $neon-blue;
+      text-decoration: none;
+      &:hover {
+        color: $neon-pink;
+        text-shadow: 0 0 5px $neon-pink;
+      }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px $shadow;
+    }
+  }
+}
+
+// Aside
+aside {
+  margin: 2rem 0;
+
+  h2, h4 {
+    color: $neon-blue;
+    text-shadow: 0 0 8px $neon-blue;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      margin-bottom: 0.75rem;
+
+      span:first-child {
+        color: $neon-pink;
+      }
+
+      a {
+        color: $neon-green;
+        &:hover {
+          color: $neon-pink;
+        }
+      }
+    }
+  }
+
+  &.profile {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .features {
+    li {
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed $neon-blue;
+    }
+  }
+
+  .link-allstyles {
+    color: $neon-green;
+    font-weight: bold;
+    &:hover {
+      color: $neon-pink;
+    }
+  }
+}
+
+// Footer
+.page-footer {
+  background: linear-gradient(135deg, $neon-pink, $neon-blue);
+  padding: 2rem 0;
+  text-align: center;
+
+  a {
+    color: $neon-green;
+    &:hover {
+      color: $neon-pink;
+    }
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 1rem 0;
+
+    li {
+      margin: 0.5rem 1rem;
+
+      svg {
+        width: 20px; // Changed to 20px (distinct from header’s 16px)
+        height: 20px;
+        fill: $neon-green;
+        transition: transform 0.3s;
+      }
+
+      &:hover svg {
+        fill: $neon-pink;
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes neonGlow {
+  0% {
+    box-shadow: 0 0 20px $neon-blue, 0 0 40px $neon-pink;
+    background: linear-gradient(135deg, $neon-blue, $neon-pink);
+  }
+  100% {
+    box-shadow: 0 0 30px $neon-pink, 0 0 60px $neon-blue;
+    background: linear-gradient(135deg, $neon-pink, $neon-blue);
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    padding: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

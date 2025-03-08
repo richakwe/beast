@@ -1,0 +1,337 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Courier New", monospace;
+  background: linear-gradient(45deg, #0F0F1A 0%, #2A2A40 50%, #0F0F1A 100%);
+  background-size: 200% 200%;
+  color: white;
+  line-height: 1.6;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 10px;
+  background: #FF00FF;
+  color: #1A1A2E;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 10px;
+  box-shadow: 0 0 10px #FF00FF;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  background: linear-gradient(135deg, #00FFFF, #FF00FF);
+  padding: 2rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: neonGlow 3s ease-in-out infinite alternate;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+  animation: pulse 4s infinite;
+}
+
+header h1 {
+  font-size: 3rem;
+  text-shadow: 0 0 10px #39FF14;
+  animation: flicker 1.5s infinite; /* Adjusted timing to 1.5s for faster drama */
+}
+
+header h2 {
+  font-size: 1.5rem;
+  color: #39FF14;
+}
+
+header p {
+  margin: 0.5rem 0;
+}
+
+header .link-github {
+  color: #00FFFF;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+header .link-github svg {
+  width: 12px;
+  height: 12px;
+  fill: #00FFFF;
+  margin-right: 0.5rem;
+  transition: transform 0.3s;
+}
+
+header .link-github:hover {
+  color: #FF00FF;
+}
+
+header .link-github:hover svg {
+  fill: #FF00FF;
+  transform: scale(1.2);
+}
+
+nav {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 2px solid #00FFFF;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+nav ul li {
+  margin: 0.5rem 1rem;
+}
+
+nav ul li a {
+  color: #39FF14;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  border-color: #39FF14;
+  box-shadow: 0 0 10px #39FF14;
+}
+
+main {
+  padding: 2rem 0;
+}
+
+main article {
+  margin-bottom: 2rem;
+}
+
+main article h2 {
+  color: #FF00FF;
+  font-size: 2rem;
+  text-shadow: 0 0 8px #FF00FF;
+  margin-bottom: 1rem;
+}
+
+main article p,
+main article blockquote,
+main article ul,
+main article ol {
+  margin-bottom: 1rem;
+}
+
+main article blockquote {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-left: 5px solid #00FFFF;
+  color: #39FF14;
+}
+
+main article a {
+  color: #00FFFF;
+  text-decoration: none;
+}
+
+main article a:hover {
+  color: #FF00FF;
+  text-shadow: 0 0 5px #FF00FF;
+}
+
+main article .container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+aside {
+  margin: 2rem 0;
+}
+
+aside h2,
+aside h4 {
+  color: #00FFFF;
+  text-shadow: 0 0 8px #00FFFF;
+}
+
+aside ul {
+  list-style: none;
+}
+
+aside ul li {
+  margin-bottom: 0.75rem;
+}
+
+aside ul li span:first-child {
+  color: #FF00FF;
+}
+
+aside ul li a {
+  color: #39FF14;
+}
+
+aside ul li a:hover {
+  color: #FF00FF;
+}
+
+aside.profile {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+aside .features li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #00FFFF;
+}
+
+aside .link-allstyles {
+  color: #39FF14;
+  font-weight: bold;
+}
+
+aside .link-allstyles:hover {
+  color: #FF00FF;
+}
+
+.page-footer {
+  background: linear-gradient(135deg, #FF00FF, #00FFFF);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.page-footer a {
+  color: #39FF14;
+}
+
+.page-footer a:hover {
+  color: #FF00FF;
+}
+
+.page-footer ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 1rem 0;
+}
+
+.page-footer ul li {
+  margin: 0.5rem 1rem;
+}
+
+.page-footer ul li svg {
+  width: 14px;
+  height: 14px;
+  fill: #39FF14;
+  transition: transform 0.3s;
+}
+
+.page-footer ul li:hover svg {
+  fill: #FF00FF;
+  transform: scale(1.2);
+}
+
+@keyframes neonGlow {
+  0% {
+    box-shadow: 0 0 20px #00FFFF, 0 0 40px #FF00FF;
+    background: linear-gradient(135deg, #00FFFF, #FF00FF);
+  }
+  100% {
+    box-shadow: 0 0 30px #FF00FF, 0 0 60px #00FFFF;
+    background: linear-gradient(135deg, #FF00FF, #00FFFF);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+    text-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+  }
+  10% {
+    opacity: 0.5; /* More dramatic dip */
+    text-shadow: 0 0 5px #39FF14;
+  }
+  20% {
+    opacity: 1;
+    text-shadow: 0 0 30px #39FF14, 0 0 50px #39FF14; /* Bigger shadow */
+  }
+  30% {
+    opacity: 0.6;
+    text-shadow: 0 0 10px #39FF14;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 40px #39FF14, 0 0 60px #39FF14; /* Even bigger shadow */
+  }
+  70% {
+    opacity: 0.4; /* Deeper flicker */
+    text-shadow: 0 0 5px #39FF14;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 20px #39FF14, 0 0 30px #39FF14;
+  }
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    padding: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
