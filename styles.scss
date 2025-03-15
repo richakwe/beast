@@ -1,19 +1,32 @@
-// Custom Variables
-:root {
-  --neon-pink: #FF00FF;
-  --neon-blue: #00FFFF;
-  --neon-green: #39FF14;
-  --dark-bg: #1A1A2E;
-  --shadow: rgba(0, 0, 0, 0.5);
-  --max-width: clamp(800px, 90vw, 1000px); // clamp() for responsive max-width
-  --font-size-base: calc(16px + 0.5vw); // calc() with viewport units
-  --spacing-unit: 1rem;
+// Variables
+$neon-pink: #ff00ff;
+$neon-blue: #00ffff;
+$neon-green: #39ff14;
+$dark-bg: #1a1a2e;
+$shadow: rgba(0, 0, 0, 0.5);
+$max-width: clamp(800px, 90vw, 1000px);
+$font-size-base: calc(16px + 0.5vw);
+$spacing-unit: 1rem;
+
+// Mixins
+@mixin neon-glow($color) {
+  text-shadow: 0 0 10px $color, 0 0 20px $color;
+  transition: text-shadow 0.3s ease;
 }
 
-// Variable Font (e.g., Inter from Google Fonts)
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-// Reset
+@mixin container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: calc($spacing-unit * 2);
+}
+
+// Base styles
 * {
   margin: 0;
   padding: 0;
@@ -21,54 +34,67 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  font-variation-settings: 'wght' 400; // Variable font weight
-  background: linear-gradient(45deg, var(--dark-bg) 0%, #2A2A40 50%, var(--dark-bg) 100%); // Gradient
+  font-family: "Inter", sans-serif;
+  font-variation-settings: "wght" 400;
+  background: linear-gradient(45deg, $dark-bg 0%, #2a2a40 50%, $dark-bg 100%);
+  background-size: 200% 200%;
   color: white;
   line-height: 1.6;
-  font-size: var(--font-size-base);
+  font-size: $font-size-base;
   overflow-x: hidden;
+  position: relative;
+
+  // Custom SVG as a background decoration
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23ff00ff' stroke-width='5' opacity='0.3'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%2300ffff' stroke-width='3' opacity='0.5'/%3E%3Cpath d='M50 10 L60 40 L90 40 L65 55 L75 85 L50 65 L25 85 L35 55 L10 40 L40 40 Z' fill='%2339ff14' opacity='0.2'/%3E%3C/svg%3E") repeat;
+    z-index: -1;
+    animation: pulse 6s infinite;
+  }
 }
 
-// Skip Link with 3D Transform
+// Skip link
 .skip-link {
   position: absolute;
   top: -100px;
   left: 10px;
-  background: var(--neon-pink);
-  color: var(--dark-bg);
+  background: $neon-pink;
+  color: $dark-bg;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   z-index: 1000;
-  transform: translateZ(0); // 3D transform
+  transform: translateZ(0);
   transition: transform 0.3s;
 
   &:focus {
     top: 10px;
-    transform: translateZ(20px) scale(1.1); // 3D transform on focus
-    box-shadow: 0 0 10px var(--neon-pink);
+    transform: translateZ(20px) scale(1.1);
+    box-shadow: 0 0 10px $neon-pink;
   }
 }
 
-// Container with calc()
+// Container
 .container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: calc(var(--spacing-unit) * 2); // calc() for dynamic padding
+  @include container;
 }
 
-// Header with Animation and Gradient
+// Header
 header {
-  background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+  background: linear-gradient(135deg, $neon-blue, $neon-pink);
   padding: 2rem 0;
   text-align: center;
-  position: sticky; // position: sticky
-  top: 0;
+  position: relative;
   z-index: 10;
+  overflow: hidden;
   animation: neonGlow 3s ease-in-out infinite alternate;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -79,15 +105,15 @@ header {
   }
 
   h1 {
-    font-size: min(4rem, 10vw); // min() for responsive font size
-    text-shadow: 0 0 10px var(--neon-green);
+    @include neon-glow($neon-green);
+    font-size: min(4rem, 10vw);
     animation: flicker 1.5s infinite;
-    transform: perspective(500px) rotateX(10deg); // 3D transform
+    transform: perspective(500px) rotateX(10deg);
   }
 
   h2 {
-    font-size: max(1.2rem, 3vw); // max() for minimum size
-    color: var(--neon-green);
+    font-size: max(1.2rem, 3vw);
+    color: $neon-green;
   }
 
   p {
@@ -95,35 +121,36 @@ header {
   }
 
   .link-github {
-    color: var(--neon-blue);
+    color: $neon-blue;
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
+    @include flex-center;
     margin-top: 1rem;
 
     svg {
-      width: 12px;
-      height: 12px;
-      fill: var(--neon-blue);
+      width: 20px;
+      height: 20px;
+      fill: $neon-blue;
       transition: transform 0.3s;
     }
 
     &:hover {
-      color: var(--neon-pink);
-      svg { fill: var(--neon-pink); transform: scale(1.2); }
+      color: $neon-pink;
+      svg {
+        fill: $neon-pink;
+        transform: scale(1.2);
+      }
     }
   }
 }
 
-// Nav with Flexbox
+// Navigation
 nav {
   background: rgba(255, 255, 255, 0.05);
-  border-bottom: 2px solid var(--neon-blue);
-  scroll-margin-top: 4rem; // scroll-margin
+  border-bottom: 2px solid $neon-blue;
+  scroll-margin-top: 4rem;
 
   ul {
-    display: flex; // Flexbox
-    justify-content: center;
+    @include flex-center;
     flex-wrap: wrap;
     list-style: none;
 
@@ -131,173 +158,191 @@ nav {
       margin: 0.5rem 1rem;
 
       a {
-        color: var(--neon-green);
+        color: $neon-green;
         text-decoration: none;
         padding: 0.5rem;
         transition: all 0.3s;
 
-        &:hover, &:focus {
-          box-shadow: 0 0 10px var(--neon-green);
+        &:hover,
+        &:focus {
+          box-shadow: 0 0 10px $neon-green;
         }
       }
     }
   }
 
-  // Focus-within
   &:focus-within {
     background: rgba(255, 255, 255, 0.1);
   }
 }
 
-// Main with Grid
+// Main content
 main {
-  display: grid; // Grid
+  display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
   padding: 2rem 0;
-  scroll-snap-type: y proximity; // scroll-snap
+  scroll-snap-type: y proximity;
 
   article {
-    scroll-snap-align: start; // scroll-snap
+    scroll-snap-align: start;
     margin-bottom: 2rem;
 
     h2 {
-      color: var(--neon-pink);
+      @include neon-glow($neon-pink);
       font-size: 2rem;
-      text-shadow: 0 0 8px var(--neon-pink);
+    }
+
+    h3 {
+      color: $neon-blue;
+      font-size: 1.5rem;
+      margin: 1rem 0;
     }
 
     .container {
       background: rgba(255, 255, 255, 0.05);
       padding: 1.5rem;
       border-radius: 10px;
-      box-shadow: 0 0 15px var(--shadow);
+      box-shadow: 0 0 15px $shadow;
     }
 
     blockquote {
       background: rgba(255, 255, 255, 0.1);
       padding: 1rem;
-      border-left: 5px solid var(--neon-blue);
-      color: var(--neon-green);
+      border-left: 5px solid $neon-blue;
+      color: $neon-green;
     }
 
     a {
-      color: var(--neon-blue);
-      &:hover { color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink); }
+      color: $neon-blue;
+
+      &:hover {
+        color: $neon-pink;
+        @include neon-glow($neon-pink);
+      }
+    }
+
+    ul, ol {
+      margin-left: 1.5rem;
+      list-style: square;
     }
   }
 }
 
-// Aside with Two-Value Display
+// Asides
 aside {
-  display: flex flow; // Two-value display (block flow is default equivalent)
-  flex-direction: column;
   margin: 2rem 0;
 
-  h2, h4 {
-    color: var(--neon-blue);
-    text-shadow: 0 0 8px var(--neon-blue);
+  h2,
+  h4 {
+    @include neon-glow($neon-blue);
   }
 
   &.profile {
     background: rgba(255, 255, 255, 0.05);
     padding: 1rem;
     border-radius: 10px;
+
+    ul {
+      list-style: none;
+    }
   }
 
   .features {
-    display: grid; // Grid for features
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
 
     li {
       padding: 0.5rem;
-      border-bottom: 1px dashed var(--neon-blue);
+      border-bottom: 1px dashed $neon-blue;
     }
   }
 
   .link-allstyles {
-    color: var(--neon-green);
-    &:hover { color: var(--neon-pink); }
+    color: $neon-green;
+
+    &:hover {
+      color: $neon-pink;
+    }
   }
 }
 
-// Footer with Object-Fit (pseudo-element trick)
+// Footer
 .page-footer {
-  background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+  background: linear-gradient(135deg, $neon-pink, $neon-blue);
   padding: 2rem 0;
   text-align: center;
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="rgba(255,255,255,0.1)" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"/></svg>');
-    object-fit: cover; // object-fit
-    opacity: 0.2;
-  }
-
   ul {
-    display: flex;
-    justify-content: center;
+    @include flex-center;
     flex-wrap: wrap;
+    list-style: none;
 
     li {
       margin: 0.5rem 1rem;
 
       svg {
-        width: 14px;
-        height: 14px;
-        fill: var(--neon-green);
+        width: 20px;
+        height: 20px;
+        fill: $neon-green;
         transition: transform 0.3s;
       }
 
-      &:hover svg { fill: var(--neon-pink); transform: scale(1.2); }
+      &:hover {
+        svg {
+          fill: $neon-pink;
+          transform: scale(1.2);
+        }
+      }
     }
   }
 }
 
 // Animations
 @keyframes neonGlow {
-  0% { box-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-pink); }
-  100% { box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-blue); }
+  0% {
+    box-shadow: 0 0 20px $neon-blue, 0 0 40px $neon-pink;
+    background: linear-gradient(135deg, $neon-blue, $neon-pink);
+  }
+  100% {
+    box-shadow: 0 0 30px $neon-pink, 0 0 60px $neon-blue;
+    background: linear-gradient(135deg, $neon-pink, $neon-blue);
+  }
 }
 
 @keyframes pulse {
-  0% { opacity: 0.3; }
+  0%, 100% { opacity: 0.3; }
   50% { opacity: 0.6; }
-  100% { opacity: 0.3; }
 }
 
 @keyframes flicker {
-  0% { opacity: 1; text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green); }
-  10% { opacity: 0.5; text-shadow: 0 0 5px var(--neon-green); }
-  20% { opacity: 1; text-shadow: 0 0 30px var(--neon-green), 0 0 50px var(--neon-green); }
-  30% { opacity: 0.6; text-shadow: 0 0 10px var(--neon-green); }
-  50% { opacity: 1; text-shadow: 0 0 40px var(--neon-green), 0 0 60px var(--neon-green); }
-  70% { opacity: 0.4; text-shadow: 0 0 5px var(--neon-green); }
-  100% { opacity: 1; text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
+  0% { opacity: 1; text-shadow: 0 0 10px $neon-green, 0 0 20px $neon-green; }
+  10% { opacity: 0.5; text-shadow: 0 0 5px $neon-green; }
+  20% { opacity: 1; text-shadow: 0 0 30px $neon-green, 0 0 50px $neon-green; }
+  30% { opacity: 0.6; text-shadow: 0 0 10px $neon-green; }
+  50% { opacity: 1; text-shadow: 0 0 40px $neon-green, 0 0 60px $neon-green; }
+  70% { opacity: 0.4; text-shadow: 0 0 5px $neon-green; }
+  100% { opacity: 1; text-shadow: 0 0 20px $neon-green, 0 0 30px $neon-green; }
 }
 
-// @supports for Variable Fonts
-@supports (font-variation-settings: 'wght' 400) {
-  body { font-variation-settings: 'wght' 600; }
-  header h1 { font-variation-settings: 'wght' 900; }
+// Feature support and media queries
+@supports (font-variation-settings: "wght" 400) {
+  body { font-variation-settings: "wght" 600; }
+  header h1 { font-variation-settings: "wght" 900; }
 }
 
-// Expanded Media Queries
 @media (max-width: 768px) and (orientation: portrait) {
   header h1 { font-size: 2rem; }
   nav ul { flex-direction: column; align-items: center; }
-  .container { padding: var(--spacing-unit); }
+  .container { padding: $spacing-unit; }
 }
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
 @media (min-resolution: 2dppx) {
-  header h1 { text-shadow: 0 0 15px var(--neon-green); } // Sharper shadows for high-DPI
+  header h1 { text-shadow: 0 0 15px $neon-green; }
 }

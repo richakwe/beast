@@ -1,14 +1,3 @@
-:root {
-  --neon-pink: #FF00FF;
-  --neon-blue: #00FFFF;
-  --neon-green: #39FF14;
-  --dark-bg: #1A1A2E;
-  --shadow: rgba(0, 0, 0, 0.5);
-  --max-width: clamp(800px, 90vw, 1000px);
-  --font-size-base: calc(16px + 0.5vw);
-  --spacing-unit: 1rem;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -18,8 +7,8 @@
 body {
   font-family: "Inter", sans-serif;
   font-variation-settings: "wght" 400;
-  background: linear-gradient(45deg, #1A1A2E 0%, #2A2A40 50%, #1A1A2E 100%);
-  background-size: 200% 200%;
+  background: linear-gradient(45deg, #1a1a2e 0%, #2a2a40 50%, #1a1a2e 100%), url("https://source.unsplash.com/random/900x600?neon") no-repeat center/cover;
+  background-size: 200% 200%, cover;
   color: white;
   line-height: 1.6;
   font-size: calc(16px + 0.5vw);
@@ -30,38 +19,35 @@ body {
   position: absolute;
   top: -100px;
   left: 10px;
-  background: #FF00FF;
-  color: #1A1A2E;
+  background: #ff00ff;
+  color: #1a1a2e;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   z-index: 1000;
   transform: translateZ(0);
   transition: transform 0.3s;
 }
-
 .skip-link:focus {
   top: 10px;
   transform: translateZ(20px) scale(1.1);
-  box-shadow: 0 0 10px #FF00FF;
+  box-shadow: 0 0 10px #ff00ff;
 }
 
 .container {
   max-width: clamp(800px, 90vw, 1000px);
   margin: 0 auto;
-  padding: calc(1rem * 2);
+  padding: 2rem;
 }
 
 header {
-  background: linear-gradient(135deg, #00FFFF, #FF00FF);
+  background: linear-gradient(135deg, #00ffff, #ff00ff);
   padding: 2rem 0;
   text-align: center;
   position: relative;
-  top: 0;
   z-index: 10;
   overflow: hidden;
   animation: neonGlow 3s ease-in-out infinite alternate;
 }
-
 header::after {
   content: "";
   position: absolute;
@@ -72,76 +58,66 @@ header::after {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
   animation: pulse 4s infinite;
 }
-
 header h1 {
+  text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+  transition: text-shadow 0.3s ease;
   font-size: min(4rem, 10vw);
-  text-shadow: 0 0 10px #39FF14;
   animation: flicker 1.5s infinite;
   transform: perspective(500px) rotateX(10deg);
 }
-
 header h2 {
   font-size: max(1.2rem, 3vw);
-  color: #39FF14;
+  color: #39ff14;
 }
-
 header p {
   margin: 0.5rem 0;
 }
-
 header .link-github {
-  color: #00FFFF;
+  color: #00ffff;
   text-decoration: none;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
   margin-top: 1rem;
 }
-
 header .link-github svg {
   width: 20px;
   height: 20px;
-  fill: #00FFFF;
+  fill: #00ffff;
   transition: transform 0.3s;
 }
-
 header .link-github:hover {
-  color: #FF00FF;
+  color: #ff00ff;
 }
-
 header .link-github:hover svg {
-  fill: #FF00FF;
+  fill: #ff00ff;
   transform: scale(1.2);
 }
 
 nav {
   background: rgba(255, 255, 255, 0.05);
-  border-bottom: 2px solid #00FFFF;
+  border-bottom: 2px solid #00ffff;
   scroll-margin-top: 4rem;
 }
-
 nav ul {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   list-style: none;
 }
-
 nav ul li {
   margin: 0.5rem 1rem;
 }
-
 nav ul li a {
-  color: #39FF14;
+  color: #39ff14;
   text-decoration: none;
   padding: 0.5rem;
   transition: all 0.3s;
 }
-
-nav ul li a:hover,
-nav ul li a:focus {
-  box-shadow: 0 0 10px #39FF14;
+nav ul li a:hover, nav ul li a:focus {
+  box-shadow: 0 0 10px #39ff14;
 }
-
 nav:focus-within {
   background: rgba(255, 255, 255, 0.1);
 }
@@ -153,85 +129,83 @@ main {
   padding: 2rem 0;
   scroll-snap-type: y proximity;
 }
-
 main article {
   scroll-snap-align: start;
   margin-bottom: 2rem;
 }
-
 main article h2 {
-  color: #FF00FF;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  transition: text-shadow 0.3s ease;
   font-size: 2rem;
-  text-shadow: 0 0 8px #FF00FF;
 }
-
+main article h3 {
+  color: #00ffff;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
 main article .container {
   background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
-
 main article blockquote {
   background: rgba(255, 255, 255, 0.1);
   padding: 1rem;
-  border-left: 5px solid #00FFFF;
-  color: #39FF14;
+  border-left: 5px solid #00ffff;
+  color: #39ff14;
 }
-
 main article a {
-  color: #00FFFF;
+  color: #00ffff;
 }
-
 main article a:hover {
-  color: #FF00FF;
-  text-shadow: 0 0 5px #FF00FF;
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  transition: text-shadow 0.3s ease;
+}
+main article ul, main article ol {
+  margin-left: 1.5rem;
+  list-style: square;
 }
 
 aside {
-  display: flex flow;
-  flex-direction: column;
   margin: 2rem 0;
 }
-
 aside h2,
 aside h4 {
-  color: #00FFFF;
-  text-shadow: 0 0 8px #00FFFF;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  transition: text-shadow 0.3s ease;
 }
-
 aside.profile {
   background: rgba(255, 255, 255, 0.05);
   padding: 1rem;
   border-radius: 10px;
 }
-
+aside.profile ul {
+  list-style: none;
+}
 aside .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 }
-
 aside .features li {
   padding: 0.5rem;
-  border-bottom: 1px dashed #00FFFF;
+  border-bottom: 1px dashed #00ffff;
 }
-
 aside .link-allstyles {
-  color: #39FF14;
+  color: #39ff14;
 }
-
 aside .link-allstyles:hover {
-  color: #FF00FF;
+  color: #ff00ff;
 }
 
 .page-footer {
-  background: linear-gradient(135deg, #FF00FF, #00FFFF);
+  background: linear-gradient(135deg, #ff00ff, #00ffff);
   padding: 2rem 0;
   text-align: center;
   position: relative;
 }
-
 .page-footer::before {
   content: "";
   position: absolute;
@@ -239,87 +213,78 @@ aside .link-allstyles:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\"><path fill=\"rgba(255,255,255,0.1)\" d=\"M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z\"/></svg>");
-  object-fit: cover;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="rgba(255,255,255,0.1)" d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"/></svg>');
   opacity: 0.2;
 }
-
 .page-footer ul {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+  list-style: none;
 }
-
 .page-footer ul li {
   margin: 0.5rem 1rem;
 }
-
 .page-footer ul li svg {
   width: 20px;
   height: 20px;
-  fill: #39FF14;
+  fill: #39ff14;
   transition: transform 0.3s;
 }
-
 .page-footer ul li:hover svg {
-  fill: #FF00FF;
+  fill: #ff00ff;
   transform: scale(1.2);
 }
 
 @keyframes neonGlow {
   0% {
-    box-shadow: 0 0 20px #00FFFF, 0 0 40px #FF00FF;
-    background: linear-gradient(135deg, #00FFFF, #FF00FF);
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+    background: linear-gradient(135deg, #00ffff, #ff00ff);
   }
   100% {
-    box-shadow: 0 0 30px #FF00FF, 0 0 60px #00FFFF;
-    background: linear-gradient(135deg, #FF00FF, #00FFFF);
+    box-shadow: 0 0 30px #ff00ff, 0 0 60px #00ffff;
+    background: linear-gradient(135deg, #ff00ff, #00ffff);
   }
 }
-
 @keyframes pulse {
-  0% {
+  0%, 100% {
     opacity: 0.3;
   }
   50% {
     opacity: 0.6;
   }
-  100% {
-    opacity: 0.3;
-  }
 }
-
 @keyframes flicker {
   0% {
     opacity: 1;
-    text-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+    text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
   }
   10% {
     opacity: 0.5;
-    text-shadow: 0 0 5px #39FF14;
+    text-shadow: 0 0 5px #39ff14;
   }
   20% {
     opacity: 1;
-    text-shadow: 0 0 30px #39FF14, 0 0 50px #39FF14;
+    text-shadow: 0 0 30px #39ff14, 0 0 50px #39ff14;
   }
   30% {
     opacity: 0.6;
-    text-shadow: 0 0 10px #39FF14;
+    text-shadow: 0 0 10px #39ff14;
   }
   50% {
     opacity: 1;
-    text-shadow: 0 0 40px #39FF14, 0 0 60px #39FF14;
+    text-shadow: 0 0 40px #39ff14, 0 0 60px #39ff14;
   }
   70% {
     opacity: 0.4;
-    text-shadow: 0 0 5px #39FF14;
+    text-shadow: 0 0 5px #39ff14;
   }
   100% {
     opacity: 1;
-    text-shadow: 0 0 20px #39FF14, 0 0 30px #39FF14;
+    text-shadow: 0 0 20px #39ff14, 0 0 30px #39ff14;
   }
 }
-
 @supports (font-variation-settings: "wght" 400) {
   body {
     font-variation-settings: "wght" 600;
@@ -328,7 +293,6 @@ aside .link-allstyles:hover {
     font-variation-settings: "wght" 900;
   }
 }
-
 @media (max-width: 768px) and (orientation: portrait) {
   header h1 {
     font-size: 2rem;
@@ -341,16 +305,16 @@ aside .link-allstyles:hover {
     padding: 1rem;
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
   }
 }
-
 @media (min-resolution: 2dppx) {
   header h1 {
-    text-shadow: 0 0 15px #39FF14;
+    text-shadow: 0 0 15px #39ff14;
   }
 }
+
+/*# sourceMappingURL=styles.css.map */
