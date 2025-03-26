@@ -1,29 +1,25 @@
 // Variables
-$neon-pink: #ff00ff;
-$neon-blue: #00ffff;
-$neon-green: #39ff14;
-$dark-bg: #1a1a2e;
+$neon-pink: #FF00FF;
+$neon-blue: #00FFFF;
+$neon-green: #39FF14;
+$dark-bg: #1A1A2E;
 $shadow: rgba(0, 0, 0, 0.5);
 $max-width: clamp(800px, 90vw, 1000px);
 $font-size-base: calc(16px + 0.5vw);
 $spacing-unit: 1rem;
 
 // Mixins
-@mixin neon-glow($color) {
-  text-shadow: 0 0 10px $color, 0 0 20px $color;
-  transition: text-shadow 0.3s ease;
+@mixin neon-glow($color1, $color2) {
+  box-shadow: 0 0 20px $color1, 0 0 40px $color2;
+  @media (min-resolution: 2dppx) {
+    box-shadow: 0 0 30px $color1, 0 0 60px $color2;
+  }
 }
 
 @mixin flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@mixin container {
-  max-width: $max-width;
-  margin: 0 auto;
-  padding: calc($spacing-unit * 2);
 }
 
 // Base styles
@@ -36,7 +32,7 @@ $spacing-unit: 1rem;
 body {
   font-family: "Inter", sans-serif;
   font-variation-settings: "wght" 400;
-  background: linear-gradient(45deg, $dark-bg 0%, #2a2a40 50%, $dark-bg 100%);
+  background: linear-gradient(45deg, $dark-bg 0%, darken($dark-bg, 5%) 50%, $dark-bg 100%);
   background-size: 200% 200%;
   color: white;
   line-height: 1.6;
@@ -44,18 +40,30 @@ body {
   overflow-x: hidden;
   position: relative;
 
-  // Custom SVG as a background decoration
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23ff00ff' stroke-width='5' opacity='0.3'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%2300ffff' stroke-width='3' opacity='0.5'/%3E%3Cpath d='M50 10 L60 40 L90 40 L65 55 L75 85 L50 65 L25 85 L35 55 L10 40 L40 40 Z' fill='%2339ff14' opacity='0.2'/%3E%3C/svg%3E") repeat;
-    z-index: -1;
-    animation: pulse 6s infinite;
+  @supports (font-variation-settings: "wght" 400) {
+    font-variation-settings: "wght" 600;
   }
+}
+
+// Stars animation
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.falling-star {
+  animation: fall 3s infinite linear;
+  transform-origin: center;
+  filter: drop-shadow(0 0 5px $neon-green);
+
+  &:nth-child(1) { animation-delay: 0s; }
+  &:nth-child(2) { animation-delay: 0.6s; }
+  &:nth-child(3) { animation-delay: 1.2s; }
+  &:nth-child(4) { animation-delay: 1.8s; }
+  &:nth-child(5) { animation-delay: 2.4s; }
 }
 
 // Skip link
@@ -74,19 +82,21 @@ body {
   &:focus {
     top: 10px;
     transform: translateZ(20px) scale(1.1);
-    box-shadow: 0 0 10px $neon-pink;
+    @include neon-glow($neon-pink, $neon-pink);
   }
 }
 
 // Container
 .container {
-  @include container;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $spacing-unit * 2;
 }
 
 // Header
 header {
   background: linear-gradient(135deg, $neon-blue, $neon-pink);
-  padding: 2rem 0;
+  padding: $spacing-unit * 2 0;
   text-align: center;
   position: relative;
   z-index: 10;
@@ -105,10 +115,14 @@ header {
   }
 
   h1 {
-    @include neon-glow($neon-green);
     font-size: min(4rem, 10vw);
+    text-shadow: 0 0 10px $neon-green;
     animation: flicker 1.5s infinite;
     transform: perspective(500px) rotateX(10deg);
+
+    @supports (font-variation-settings: "wght" 400) {
+      font-variation-settings: "wght" 900;
+    }
   }
 
   h2 {
@@ -124,7 +138,7 @@ header {
     color: $neon-blue;
     text-decoration: none;
     @include flex-center;
-    margin-top: 1rem;
+    margin-top: $spacing-unit;
 
     svg {
       width: 20px;
@@ -135,6 +149,7 @@ header {
 
     &:hover {
       color: $neon-pink;
+
       svg {
         fill: $neon-pink;
         transform: scale(1.2);
@@ -165,7 +180,7 @@ nav {
 
         &:hover,
         &:focus {
-          box-shadow: 0 0 10px $neon-green;
+          @include neon-glow($neon-green, $neon-green);
         }
       }
     }
@@ -180,23 +195,18 @@ nav {
 main {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  padding: 2rem 0;
+  gap: $spacing-unit * 2;
+  padding: $spacing-unit * 2 0;
   scroll-snap-type: y proximity;
 
   article {
     scroll-snap-align: start;
-    margin-bottom: 2rem;
+    margin-bottom: $spacing-unit * 2;
 
     h2 {
-      @include neon-glow($neon-pink);
+      color: $neon-pink;
       font-size: 2rem;
-    }
-
-    h3 {
-      color: $neon-blue;
-      font-size: 1.5rem;
-      margin: 1rem 0;
+      text-shadow: 0 0 8px $neon-pink;
     }
 
     .container {
@@ -208,7 +218,7 @@ main {
 
     blockquote {
       background: rgba(255, 255, 255, 0.1);
-      padding: 1rem;
+      padding: $spacing-unit;
       border-left: 5px solid $neon-blue;
       color: $neon-green;
     }
@@ -218,40 +228,32 @@ main {
 
       &:hover {
         color: $neon-pink;
-        @include neon-glow($neon-pink);
+        text-shadow: 0 0 5px $neon-pink;
       }
-    }
-
-    ul, ol {
-      margin-left: 1.5rem;
-      list-style: square;
     }
   }
 }
 
-// Asides
+// Aside
 aside {
-  margin: 2rem 0;
+  margin: $spacing-unit * 2 0;
 
   h2,
   h4 {
-    @include neon-glow($neon-blue);
+    color: $neon-blue;
+    text-shadow: 0 0 8px $neon-blue;
   }
 
   &.profile {
     background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
+    padding: $spacing-unit;
     border-radius: 10px;
-
-    ul {
-      list-style: none;
-    }
   }
 
   .features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: $spacing-unit;
 
     li {
       padding: 0.5rem;
@@ -271,14 +273,24 @@ aside {
 // Footer
 .page-footer {
   background: linear-gradient(135deg, $neon-pink, $neon-blue);
-  padding: 2rem 0;
+  padding: $spacing-unit * 2 0;
   text-align: center;
   position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\"><path fill=\"rgba(255,255,255,0.1)\" d=\"M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z\"/></svg>");
+    opacity: 0.2;
+  }
 
   ul {
     @include flex-center;
     flex-wrap: wrap;
-    list-style: none;
 
     li {
       margin: 0.5rem 1rem;
@@ -288,10 +300,8 @@ aside {
         height: 20px;
         fill: $neon-green;
         transition: transform 0.3s;
-      }
 
-      &:hover {
-        svg {
+        &:hover {
           fill: $neon-pink;
           transform: scale(1.2);
         }
@@ -302,19 +312,14 @@ aside {
 
 // Animations
 @keyframes neonGlow {
-  0% {
-    box-shadow: 0 0 20px $neon-blue, 0 0 40px $neon-pink;
-    background: linear-gradient(135deg, $neon-blue, $neon-pink);
-  }
-  100% {
-    box-shadow: 0 0 30px $neon-pink, 0 0 60px $neon-blue;
-    background: linear-gradient(135deg, $neon-pink, $neon-blue);
-  }
+  0% { @include neon-glow($neon-blue, $neon-pink); }
+  100% { @include neon-glow($neon-pink, $neon-blue); }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.3; }
+  0% { opacity: 0.3; }
   50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
 }
 
 @keyframes flicker {
@@ -327,16 +332,18 @@ aside {
   100% { opacity: 1; text-shadow: 0 0 20px $neon-green, 0 0 30px $neon-green; }
 }
 
-// Feature support and media queries
-@supports (font-variation-settings: "wght" 400) {
-  body { font-variation-settings: "wght" 600; }
-  header h1 { font-variation-settings: "wght" 900; }
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  50% { opacity: 0.8; filter: drop-shadow(0 0 10px $neon-green); }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; filter: drop-shadow(0 0 5px $neon-green); }
 }
 
+// Media Queries
 @media (max-width: 768px) and (orientation: portrait) {
   header h1 { font-size: 2rem; }
-  nav ul { flex-direction: column; align-items: center; }
+  nav ul { flex-direction: column; }
   .container { padding: $spacing-unit; }
+  .falling-star { transform: scale(0.8); }
 }
 
 @media (prefers-reduced-motion: reduce) {
